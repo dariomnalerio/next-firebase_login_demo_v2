@@ -4,6 +4,7 @@ import {
   updatePassword,
   updateProfile,
 } from "firebase/auth";
+import useFirebaseAuth from "../../firebase/useAuth";
 
 export const UpdateUser = (
   firstName?: string,

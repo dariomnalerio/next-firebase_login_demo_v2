@@ -5,11 +5,8 @@ import Link from "next/link";
 export default function Nav() {
   // Need to add mobile nav
 
-  const { user, loading, logOut } = useFirebaseAuth();
+  const { logOut } = useFirebaseAuth();
 
-  if (loading) {
-    return <h1>Loading...</h1>
-  }
 
   return (
     <div className="navbar bg-base-200 shadow-2xl border-base-300 rounded-b-2xl hidden md:flex md:lg-px-12 lg:px-20 mb-5">

@@ -10,7 +10,6 @@ const useFirebaseAuth = () => {
   initFirebase();
   const router = useRouter();
   const auth = getAuth();
-  const [email, setEmail] = useState("");
 
   const [authUser, setAuthUser] = useState<auth.User | null>();
   const [loading, setLoading] = useState(true); // while we are fetching data from firebase
@@ -18,27 +17,28 @@ const useFirebaseAuth = () => {
   const handleLogout = () => {
     const auth = getAuth();
     signOut(auth)
-      .then((res) => {
+      .then(() => {
         // Sign-out successful.
         router.push("/logout");
-        // clear cookies
+        // TODO: clear cookies
 
         console.log("logout successful");
       })
       .catch((error) => {
         // An error happened.
+        console.log(error);
       });
   };
 
   const authStateChangeHandler = (authState: any) => {
+    setLoading(false);
+
     if (!authState) {
       // no user logged in
       setAuthUser(null);
-      setLoading(false);
     } else {
       setAuthUser(authState);
       // can set cookies here
-      setLoading(false);
       router.push("/");
     }
   };
