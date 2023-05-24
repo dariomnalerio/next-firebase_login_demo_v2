@@ -1,29 +1,15 @@
-"use client";
-import { getAuth, signOut } from "firebase/auth";
-import { useRouter } from "next/navigation";
+"use client"
+import useFirebaseAuth from "../../firebase/useAuth";
 import Link from "next/link";
-import initFirebase from "../../firebaseConfig";
 
 export default function Nav() {
   // Need to add mobile nav
-  initFirebase();
 
-  const router = useRouter();
+  const { user, loading, logOut } = useFirebaseAuth();
 
-  const handleLogout = () => {
-    const auth = getAuth();
-    signOut(auth)
-      .then((res) => {
-        // Sign-out successful.
-        router.push("/logout");
-        // clear cookies
-
-        console.log("logout successful");
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
+  if (loading) {
+    return <h1>Loading...</h1>
+  }
 
   return (
     <div className="navbar bg-base-200 shadow-2xl border-base-300 rounded-b-2xl hidden md:flex md:lg-px-12 lg:px-20 mb-5">
@@ -58,7 +44,7 @@ export default function Nav() {
           </li>
           <li>
             <button
-              onClick={handleLogout}
+              onClick={logOut}
               className="btn btn-ghost normal-case rounded-full"
             >
               Log out

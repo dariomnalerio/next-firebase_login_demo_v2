@@ -1,13 +1,12 @@
 "use client";
 import { useState } from "react";
-import initFirebase from "../../firebaseConfig";
+import initFirebase from "../../firebase/firebaseConfig";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
 export default function () {
   initFirebase();
   const auth = getAuth(); // gets information from firebaseConfig.ts
-
   const router = useRouter();
 
   const [firstName, setFirstName] = useState("");
@@ -15,6 +14,7 @@ export default function () {
   const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
 
   const handleSignUp = async () => {
     const userCredentials = await createUserWithEmailAndPassword(
