@@ -7,6 +7,8 @@ With the knowledge obtained in the [first version](https://github.com/dariomnale
 
 The aim was to learn about how to set up user  authentication with these technologies to use in future  projects.
 
+You must create a firebase project in order to run this program
+
 ## Features
 
 - Sign up
@@ -14,50 +16,16 @@ The aim was to learn about how to set up user  authentication with these technol
 - Log out
 - Edit user info (name, age, email, password)
 
-## Firebase setup and env variables
+## Enviroment variables
 
-You must create a firebase project in order to run this program
+You can get these values from the firebase console
 
-`firebaseConfig.tsx` file must be placed in ./client/firebase/
-
-```typescript
-import  { initializeApp, getApps }  from  "firebase/app";
-import  { getAuth }  from  "firebase/auth";
-import  { getAnalytics }  from  "firebase/analytics";
-import  { getPerformance }  from  "firebase/performance";
-
-const  firebaseConfig  =  {
-apiKey:  process.env.NEXT_PUBLIC_API_KEY,
-authDomain:  process.env.NEXT_PUBLIC_AUTH_DOMAIN,
-projectId:  process.env.NEXT_PUBLIC_PROJECT_ID,
-storageBucket:  process.env.NEXT_PUBLIC_STORAGE_BUCKET,
-messagingSenderId:  process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-appId:  process.env.NEXT_PUBLIC_APP_ID,
-measurementId:  process.env.NEXT_PUBLIC_MEASUREMENT_ID,
-};
-
-// Use the firebaseConfig object as needed
-const  initFirebase  =  ()  =>  {
-	if (!getApps().length) {
-		// initialize firebase app with your configuration if it's not already initialized
-		const  app  =  initializeApp(firebaseConfig);
-		// create auth for authentication
-		const  auth  =  getAuth(app);
-
-		// create analytics and performance if configured on firebase project
-		if (typeof  window  !==  "undefined") {
-			if ("measurementId"  in  firebaseConfig) {
-				const  analytics  =  getAnalytics(app);
-				const  performance  =  getPerformance(app);
-			}
-		}
-	}
-};
-
-  
-
-export  default  initFirebase;
-```
+`NEXT_PUBLIC_AUTH_DOMAIN`
+`NEXT_PUBLIC_PROJECT_ID`
+`NEXT_PUBLIC_STORAGE_BUCKET`
+`NEXT_PUBLIC_MESSAGING_SENDER_ID`
+`NEXT_PUBLIC_APP_ID`
+`NEXT_PUBLIC_MEASUREMENT_ID`
 
 ## Run locally
 
