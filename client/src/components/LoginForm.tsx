@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
 export default function () {
@@ -18,6 +18,7 @@ export default function () {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+
         router.push("/");
         console.log(user);
       })
