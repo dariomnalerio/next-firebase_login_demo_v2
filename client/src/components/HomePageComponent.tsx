@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getAuth } from "firebase/auth";
 import initFirebase from "../../firebaseConfig";
@@ -9,11 +9,14 @@ export default function CurrentUserInfo() {
   const router = useRouter();
   const auth = getAuth();
 
+  const [email, setEmail] = useState("");
+
   const authStateChangeHandler = (authState: any) => {
     if (!authState) {
       console.log("User is not logged in");
       router.push("/login");
     } else {
+      const email = setEmail(authState.email);
       console.log("User is logged in");
     }
   };
@@ -27,7 +30,5 @@ export default function CurrentUserInfo() {
     };
   }, []);
 
-  return (
-    <h1>Welcome</h1>
-  );
+  return <>{email ? <h1>Welcome {email}</h1> : <h1>Not logged in</h1>}</>;
 }
