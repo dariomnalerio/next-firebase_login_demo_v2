@@ -1,19 +1,30 @@
 "use client";
+import { useEffect, useState } from "react";
 import useFirebaseAuth from "../../firebase/useAuth";
 
 export default function CurrentUserInfo() {
   const { user, loading, logOut } = useFirebaseAuth();
-  let email = null;
-  let displayName = null;
+  const [userName, setUserName] = useState("");
 
-  if (user) {
-    email = user.email;
-    displayName = user.displayName;
-  }
+  useEffect(() => {
+    if (user) {
+      if (user.displayName) {
+        setUserName(user.displayName);
+      }
+    }
+  }, [user]);
 
   if (loading) {
     return <h1>Loading...</h1>;
   }
 
-  return <>{email ? <h1>Welcome {displayName}</h1> : <h1>Not logged in</h1>}</>;
+  return (
+    <>
+      {user && user.email ? (
+        <h1>Welcome {userName || user.email}</h1>
+      ) : (
+        <h1>Not logged in</h1>
+      )}
+    </>
+  );
 }
